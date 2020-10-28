@@ -2,6 +2,8 @@ package com.example.books.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.books.entities.Book;
@@ -41,6 +43,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<Book> getAllBooks() {
 		return bookRepository.findAll();
+	}
+
+	@Override
+	public Page<Book> getAllBooksParPage(int page, int size) {
+		return bookRepository.findAll(PageRequest.of(page, size));
 	}
 
 }

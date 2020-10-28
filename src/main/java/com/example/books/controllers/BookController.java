@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,17 +39,28 @@ public class BookController {
 	}
 	
 	@RequestMapping("/bookList")
-	public String listBooks(ModelMap modelMap) {
-		List<Book> books = bookService.getAllBooks();
+	public String listBooks(ModelMap modelMap,
+			@RequestParam (name="page",defaultValue = "0") int page,
+			@RequestParam (name="size", defaultValue = "2") int size) {
+		Page<Book> books = bookService.getAllBooksParPage(page, size);
 		modelMap.addAttribute("books", books);
+		 modelMap.addAttribute("pages", new int[books.getTotalPages()]);
+		modelMap.addAttribute("currentPage", page);
 		return "bookList";
 	}
 	
 	@RequestMapping("/deleteBook")
-	public String deleteBook(@RequestParam("id") Long id, ModelMap modelMap) {
+	public String deleteBookt(@RequestParam("id") Long id,
+			ModelMap modelMap,
+			@RequestParam (name="page",defaultValue = "0") int page,
+			@RequestParam (name="size", defaultValue = "2") int size) {
 		bookService.deleteBookById(id);
-		List<Book> books = bookService.getAllBooks();
-		modelMap.addAttribute("produits", books);
+		Page<Book> prods = bookService.getAllBooksParPage(page,
+				size);
+		modelMap.addAttribute("books", prods);
+		modelMap.addAttribute("pages", new int[prods.getTotalPages()]);
+		modelMap.addAttribute("currentPage", page);
+		modelMap.addAttribute("size", size);
 		return "bookList";
 	}
 	

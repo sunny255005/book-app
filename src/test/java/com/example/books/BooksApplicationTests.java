@@ -4,8 +4,11 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+
 import com.example.books.entities.Book;
 import com.example.books.repos.BookRepository;
+import com.example.books.service.BookServiceImpl;
 
 import java.util.List;
 
@@ -16,6 +19,7 @@ class BooksApplicationTests {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	private BookServiceImpl bookService;
 
 
 	@Test
@@ -47,5 +51,17 @@ class BooksApplicationTests {
 		List<Book> books = bookRepository.findAll();
 		for (Book book : books) System.out.println(book);
 	}
+	
+	@Test
+	public void testFindByNomBookContains() {
+		Page<Book> books = bookService.getAllBooksParPage(0,2);
+		System.out.println(books.getSize());
+		System.out.println(books.getTotalElements());
+		System.out.println(books.getTotalPages());
+		books.getContent().forEach(p -> {
+			System.out.println(p.toString());
+		});
+	}
+
 	
 }
