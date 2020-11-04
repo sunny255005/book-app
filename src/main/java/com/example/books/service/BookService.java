@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.example.books.entities.Book;
+import com.example.books.entities.Type;
 
 public interface BookService {
 	Book saveBook(Book book);
@@ -14,4 +15,11 @@ public interface BookService {
 	Book getBook(Long id);
 	List<Book> getAllBooks();
 	Page<Book> getAllBooksParPage(int page, int size);
+	List<Book> findByTitleBook(String title);
+	List<Book> findByTitleBookContains(String title);
+	List<Book> findByTitlePages (String title, int pages);
+	List<Book> findByType (Type type);
+	List<Book> findByTypeId(Long id);
+	List<Book> findByOrderByTitleBookAsc();
+	List<Book> trierBooksTitlePages ();
 }

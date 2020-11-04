@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 
 import com.example.books.entities.Book;
+import com.example.books.entities.Type;
 import com.example.books.repos.BookRepository;
 import com.example.books.service.BookServiceImpl;
 
@@ -51,17 +52,51 @@ class BooksApplicationTests {
 		List<Book> books = bookRepository.findAll();
 		for (Book book : books) System.out.println(book);
 	}
+
+	@Test
+	public void testFindByTitleBook() {
+		List<Book> books = bookRepository.findByTitleBook("book 2");
+		for (Book b : books) System.out.println(b);
+	}
 	
 	@Test
-	public void testFindByNomBookContains() {
-		Page<Book> books = bookService.getAllBooksParPage(0,2);
-		System.out.println(books.getSize());
-		System.out.println(books.getTotalElements());
-		System.out.println(books.getTotalPages());
-		books.getContent().forEach(p -> {
-			System.out.println(p.toString());
-		});
+	public void testFindByTitleBookContains() {
+		List<Book> books = bookRepository.findByTitleBookContains("book 2");
+		for (Book b : books) System.out.println(b);
+	}
+	
+	@Test
+	public void findByTitlePages() {
+		List<Book> books = bookRepository.findByTitlePages("book 2", 10);
+		for (Book b : books) System.out.println(b);
+	}
+	
+	@Test
+	public void testfindByType() {
+		Type type = new Type();
+		type.setId(1L);
+		List<Book> books = bookRepository.findByType(type);
+		for (Book b : books) System.out.println(b);
+
 	}
 
+	@Test
+	public void testfindByTypeId() {
+		List<Book> books = bookRepository.findByTypeId(1L);
+		for (Book b : books) System.out.println(b);
+	}
+	
+	@Test
+	public void testfindByOrderByTitleBookAsc() {
+		List<Book> books = bookRepository.findByOrderByTitleBookAsc();
+		for (Book b : books) System.out.println(b);
+
+	}
+	
+	@Test
+	public void testTrierBooksTitlePages() {
+		List<Book> books = bookRepository.trierBooksTitlePages();
+		for (Book b : books) System.out.println(b);
+	}
 	
 }
