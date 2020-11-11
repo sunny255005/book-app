@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.example.books.entities.Book;
 import com.example.books.entities.Type;
 
+@RepositoryRestResource(path = "rest")
 public interface BookRepository extends JpaRepository<Book, Long> {
 	 List<Book> findByTitleBook(String title);
 	 List<Book> findByTitleBookContains(String title);

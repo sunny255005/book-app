@@ -21,6 +21,7 @@ public class Type {
 	private Long id;
 	private String nom;
 	private String description;
+	@JsonIgnore
 	@OneToMany(mappedBy = "type")
 	private List<Book> books;
 	
