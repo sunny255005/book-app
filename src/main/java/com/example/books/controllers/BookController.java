@@ -1,6 +1,9 @@
 package com.example.books.controllers;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,21 +25,17 @@ public class BookController {
 	BookService bookService;
 	
 	@RequestMapping("/showCreate")
-	public String showCreate() {
-		return "createBook";
+	public String showCreate(ModelMap modelMap) {
+		modelMap.addAttribute("book", new Book());
+		modelMap.addAttribute("mode", "new");
+		return "formBook";
 	}
 	
 	@RequestMapping("/saveBook")
-	public String saveBook(@ModelAttribute("book") Book book, @RequestParam("date") String date, ModelMap modelMap) 
-	throws ParseException {
-		//conversion de la date
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-		Date dateCreation = dateformat.parse(String.valueOf(date));
-		book.setDateCreation(dateCreation);
-		Book saveBook = bookService.saveBook(book);
-		String msg ="book saved with Id "+saveBook.getId();
-		modelMap.addAttribute("msg", msg);
-		return "createBook";
+	public String saveBook(@Valid Book book, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) return "createBook";
+		bookService.saveBook(book);
+		return "formBook";
 	}
 	
 	@RequestMapping("/bookList")
@@ -68,7 +68,8 @@ public class BookController {
 	public String modifyBook(@RequestParam("id") Long id,ModelMap modelMap) {
 		Book book = bookService.getBook(id);
 		modelMap.addAttribute("book", book);
-		return "editBook";
+		modelMap.addAttribute("mode", "edit");
+		return "formBook";
 	}
 	
 	@RequestMapping("/updateBook")

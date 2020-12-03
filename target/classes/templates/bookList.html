@@ -31,6 +31,7 @@
 						 	<td th:text="${b.author}"></td>
 						 	<td th:text="${b.pages}"></td>
 						 	<td th:text="${b.dateCreation}"></td>
+						 	<td><a class="btn btn-success"th:href="@{modifyBook(id=${b.id})}">Edit</a></td>
 							<td>
 								<a class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')" th:href="@{deleteBook(id=${b.id}, page=${currentPage},size=${size})}">Delete</a>
 							</td>
