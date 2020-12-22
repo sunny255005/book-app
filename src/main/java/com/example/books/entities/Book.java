@@ -12,7 +12,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Size;
-
 import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,7 +31,7 @@ public class Book {
 	private Date dateCreation;
 	
 	@ManyToOne
-	private Type type;
+	private Genre genre;
 	
 	public Book() {
 		super();
@@ -92,6 +91,4 @@ public class Book {
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
-
-	
 }
