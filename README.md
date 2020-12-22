@@ -1,5 +1,2 @@
-# Project description
-Books CRUD App (Create, Read, Update, Delete)
-# Screenshots
-![](/screenshots/bookList.png)
-![](/screenshots/deleteBook.png)
+# Books REST API
+A simple books api made with [Java Spring Boot](https://spring.io/projects/spring-boot)
