@@ -12,8 +12,7 @@ import com.example.books.entities.Book;
 import com.example.books.service.BookService;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin
+@RequestMapping("api")
 public class BookRESTController {
 	@Autowired
 	BookService bookService;
