@@ -8,12 +8,13 @@ pipeline{
         user_env_input = 'Development'
     }
     
-    tools{
-    maven3
-    }
+    
 
     agent any
-     
+    tools { 
+        maven 'maven3' 
+       
+    } 
    
     stages {
         stage('Which environment to build?') {
