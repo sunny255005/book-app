@@ -7,6 +7,10 @@ pipeline{
         STAGING_BRANCH = 'staging'
         user_env_input = 'Development'
     }
+    
+    tools{
+    maven3
+    }
 
     agent any
      
