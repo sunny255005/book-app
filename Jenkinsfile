@@ -20,7 +20,7 @@ pipeline{
         stage('Confirm') {
             steps {
                 script {
-              (manual_value == 'true') {
+             
                         input("Do you want to proceed building in ${user_env_input} environment?")
                     }
                 }
